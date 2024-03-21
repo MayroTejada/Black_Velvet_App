@@ -1,0 +1,1 @@
+const homePath = '/home-page';

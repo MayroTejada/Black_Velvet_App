@@ -1,8 +1,10 @@
 import 'package:another_flushbar/flushbar.dart';
+import 'package:black_velvet_app/core/constants/routes_locations.dart';
 import 'package:black_velvet_app/features/login/presentation/bloc/auth_bloc.dart';
 import 'package:black_velvet_app/injection_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -40,7 +42,9 @@ class _LoginPageState extends State<LoginPage> {
                 duration: const Duration(seconds: 3),
                 title: 'success!!',
                 message: '=D',
-              ).show(context);
+              ).show(context).then((value) {
+                context.pushReplacement(homePath);
+              });
             } else if (state is AuthFailed) {
               Flushbar(
                 backgroundColor: Colors.red,
