@@ -1,0 +1,21 @@
+{
+    "dart.flutterSdkPath": ".fvm/flutter_sdk",
+    //Eliminar archivos .fvm de búsqueda
+    "search.exclude": {
+        "**/.fvm": true
+    },
+    // Eliminar de la observación de archivos
+    "files.watcherExclude": {
+        "**/.fvm": true
+    },
+    "nuxt.isNuxtApp": false,
+    "java.project.sourcePaths": [
+        "test/features/sign_up/data",
+        "test/features/sign_up/presentation/bloc"
+    ],
+    "editor.codeActionsOnSave": {
+        "source.fixAll": true,
+        "source.organizeImports": true
+    },
+    "java.configuration.updateBuildConfiguration": "interactive"
+}
