@@ -39,7 +39,7 @@ class _LoginPageState extends State<LoginPage> {
             if (state is AuthSuccess) {
               Flushbar(
                 backgroundColor: Colors.green,
-                duration: const Duration(seconds: 3),
+                duration: const Duration(seconds: 1),
                 title: 'success!!',
                 message: '=D',
               ).show(context).then((value) {
