@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:side_navigation/side_navigation.dart';
 
 @RoutePage()
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class DashboardPage extends StatefulWidget {
+  const DashboardPage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<DashboardPage> createState() => _DashboardPageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _DashboardPageState extends State<DashboardPage> {
   int selectedIndex = 0;
 
   Widget setView(int index) {

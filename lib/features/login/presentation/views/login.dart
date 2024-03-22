@@ -1,6 +1,7 @@
 import 'package:another_flushbar/flushbar.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:black_velvet_app/app_router.dart';
+import 'package:black_velvet_app/core/components/black_velvet_flushbar.dart';
 import 'package:black_velvet_app/features/login/presentation/bloc/auth_bloc.dart';
 import 'package:black_velvet_app/injection_container.dart';
 import 'package:flutter/material.dart';
@@ -38,13 +39,10 @@ class _LoginPageState extends State<LoginPage> {
         child: BlocListener<AuthBloc, AuthState>(
           listener: (context, state) {
             if (state is AuthSuccess) {
-              Flushbar(
-                backgroundColor: Colors.green,
-                duration: const Duration(seconds: 1),
-                title: 'success!!',
-                message: '=D',
-              ).show(context).then((value) {
-                context.router.replace(const HomeRoute());
+              showVelvetFlushbar(
+                      context: context, title: 'success', message: '<3')
+                  .then((value) {
+                context.router.replace(const DashboardRoute());
               });
             } else if (state is AuthFailed) {
               Flushbar(

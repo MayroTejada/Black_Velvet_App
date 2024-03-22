@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:black_velvet_app/core/components/form_container_velvet.dart';
 import 'package:flutter/material.dart';
 
 @RoutePage()
@@ -11,8 +12,10 @@ class CreateCakeQuotePage extends StatefulWidget {
 
 class _CreateCakeQuotePageState extends State<CreateCakeQuotePage> {
   late TextEditingController _nameTextEditingController;
+  late ScrollController _scrollBarcontroller;
   @override
   void initState() {
+    _scrollBarcontroller = ScrollController();
     _nameTextEditingController = TextEditingController();
     super.initState();
   }
@@ -21,29 +24,28 @@ class _CreateCakeQuotePageState extends State<CreateCakeQuotePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Scrollbar(
+        controller: _scrollBarcontroller,
         child: SingleChildScrollView(
-          padding: const EdgeInsets.all(20),
           child: Column(
             children: [
-              const Text(
-                'Cotiza tu Pastel :D',
-                style: TextStyle(fontSize: 26),
-              ),
-              Center(
-                child: SizedBox(
-                  width: 500,
-                  height: MediaQuery.of(context).size.height,
-                  child: Form(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        TextField(
-                          decoration: const InputDecoration(hintText: "Nombre"),
-                          onSubmitted: (value) {},
-                          style: const TextStyle(),
-                          controller: _nameTextEditingController,
-                        ),
-                      ],
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 30),
+                child: Center(
+                  child: FormContainerVelvet(
+                    title: 'Cotiza Tu pastel',
+                    size: Size(MediaQuery.of(context).size.width * .8, 600),
+                    child: Form(
+                      child: Column(
+                        children: [
+                          TextField(
+                            decoration:
+                                const InputDecoration(hintText: "Nombre"),
+                            onSubmitted: (value) {},
+                            style: const TextStyle(),
+                            controller: _nameTextEditingController,
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
