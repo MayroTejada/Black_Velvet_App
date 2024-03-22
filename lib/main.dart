@@ -1,7 +1,6 @@
 import 'dart:io';
 
-import 'package:black_velvet_app/core/network/pocket_base_client.dart';
-import 'package:black_velvet_app/router.dart';
+import 'package:black_velvet_app/app_router.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -10,7 +9,7 @@ import 'injection_container.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
- 
+
   if (!kIsWeb) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
@@ -19,14 +18,14 @@ void main() {
       statusBarIconBrightness:
           Platform.isAndroid ? Brightness.light : Brightness.dark,
     ));
-  }
+  } else if (kIsWeb) {}
   configureDependencies();
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
+  MyApp({super.key});
+  final router = AppRouter();
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -37,6 +36,6 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
-        routerConfig: router);
+        routerConfig: router.config());
   }
 }

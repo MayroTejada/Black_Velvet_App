@@ -34,7 +34,7 @@ extension GetItInjectableX on _i1.GetIt {
         remoteDataSourceImpl: gh<_i3.AuthRemoteDataSourceImpl>()));
     gh.factory<_i5.Login>(
         () => _i5.Login(repository: gh<_i4.AuthRepositoryImpl>()));
-    gh.factory<_i6.AuthBloc>(() => _i6.AuthBloc(login: gh<_i5.Login>()));
+    gh.singleton<_i6.AuthBloc>(() => _i6.AuthBloc(login: gh<_i5.Login>()));
     return this;
   }
 }

@@ -1,11 +1,12 @@
 import 'package:another_flushbar/flushbar.dart';
-import 'package:black_velvet_app/core/constants/routes_locations.dart';
+import 'package:auto_route/auto_route.dart';
+import 'package:black_velvet_app/app_router.dart';
 import 'package:black_velvet_app/features/login/presentation/bloc/auth_bloc.dart';
 import 'package:black_velvet_app/injection_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 
+@RoutePage()
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
@@ -43,7 +44,7 @@ class _LoginPageState extends State<LoginPage> {
                 title: 'success!!',
                 message: '=D',
               ).show(context).then((value) {
-                context.pushReplacement(homePath);
+                context.router.replace(const HomeRoute());
               });
             } else if (state is AuthFailed) {
               Flushbar(
@@ -63,48 +64,62 @@ class _LoginPageState extends State<LoginPage> {
               } else {
                 return SizedBox(
                   height: MediaQuery.of(context).size.height,
-                  child: SingleChildScrollView(
-                    physics: const BouncingScrollPhysics(),
-                    padding: const EdgeInsets.all(10),
-                    child: Column(
-                      children: [
-                        Form(
-                          key: formKey,
-                          autovalidateMode: AutovalidateMode.always,
-                          child: Column(
-                            children: [
-                              TextField(
-                                decoration:
-                                    const InputDecoration(hintText: "Email"),
-                                onSubmitted: (value) {},
-                                style: const TextStyle(),
-                                controller: _emailTextEditingController,
-                              ),
-                              TextField(
-                                decoration:
-                                    const InputDecoration(hintText: "Password"),
-                                onSubmitted: (value) {},
-                                style: const TextStyle(),
-                                controller: _passwordTextEditingController,
-                              ),
-                            ],
+                  child: Scrollbar(
+                    child: SingleChildScrollView(
+                      physics: const BouncingScrollPhysics(),
+                      padding: const EdgeInsets.all(10),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          const Text(
+                            'inicia sesion:D',
+                            style: TextStyle(fontSize: 26),
                           ),
-                        ),
-                        const SizedBox(
-                          height: 50,
-                        ),
-                        FilledButton(
-                          onPressed: () {
-                            if (formKey.currentState!.validate()) {
-                              context.read<AuthBloc>().add(SignInEvent(
-                                  email: _emailTextEditingController.text,
-                                  password:
-                                      _passwordTextEditingController.text));
-                            }
-                          },
-                          child: const Text("Login"),
-                        )
-                      ],
+                          Center(
+                            child: SizedBox(
+                              width: 500,
+                              child: Form(
+                                key: formKey,
+                                autovalidateMode: AutovalidateMode.always,
+                                child: Column(
+                                  children: [
+                                    TextField(
+                                      decoration: const InputDecoration(
+                                          hintText: "Email"),
+                                      onSubmitted: (value) {},
+                                      style: const TextStyle(),
+                                      controller: _emailTextEditingController,
+                                    ),
+                                    TextField(
+                                      decoration: const InputDecoration(
+                                          hintText: "Password"),
+                                      onSubmitted: (value) {},
+                                      style: const TextStyle(),
+                                      controller:
+                                          _passwordTextEditingController,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 50,
+                          ),
+                          FilledButton(
+                            onPressed: () {
+                              if (formKey.currentState!.validate()) {
+                                context.read<AuthBloc>().add(SignInEvent(
+                                    email: _emailTextEditingController.text,
+                                    password:
+                                        _passwordTextEditingController.text));
+                              }
+                            },
+                            child: const Text("Login"),
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 );

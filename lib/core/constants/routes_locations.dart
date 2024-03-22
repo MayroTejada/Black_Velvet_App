@@ -1,1 +1,2 @@
-const homePath = '/home-page';
+const homePath = '/home';
+const createCakeQuotePath = '/create-quote';
