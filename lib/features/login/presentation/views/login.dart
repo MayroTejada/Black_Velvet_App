@@ -17,6 +17,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final ScrollController scrollController = ScrollController();
   late TextEditingController _emailTextEditingController;
   late TextEditingController _passwordTextEditingController;
   final GlobalKey<FormState> formKey =
@@ -61,49 +62,52 @@ class _LoginPageState extends State<LoginPage> {
                   child: CircularProgressIndicator(),
                 );
               } else {
-                return SizedBox(
-                  height: MediaQuery.of(context).size.height,
-                  child: Scrollbar(
-                    child: SingleChildScrollView(
-                      physics: const BouncingScrollPhysics(),
-                      padding: const EdgeInsets.all(10),
+                return Scrollbar(
+                  controller: scrollController,
+                  child: SingleChildScrollView(
+                    controller: scrollController,
+                    physics: const BouncingScrollPhysics(),
+                    padding: const EdgeInsets.all(50),
+                    child: Center(
                       child: FormContainerVelvet(
-                        maxSize:
-                            Size(MediaQuery.of(context).size.width * .6, 600),
+                        maxSize: Size(MediaQuery.of(context).size.width * .8,
+                            MediaQuery.of(context).size.height * .8),
                         child: Form(
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               const Text(
-                                'inicia sesion:D',
+                                'Inicia sesion',
                                 style: TextStyle(fontSize: 26),
                               ),
-                              Center(
-                                child: SizedBox(
-                                  width: 500,
-                                  child: Form(
-                                    key: formKey,
-                                    autovalidateMode: AutovalidateMode.always,
-                                    child: Column(
-                                      children: [
-                                        TextField(
-                                          decoration: const InputDecoration(
-                                              hintText: "Email"),
-                                          onSubmitted: (value) {},
-                                          style: const TextStyle(),
-                                          controller:
-                                              _emailTextEditingController,
-                                        ),
-                                        TextField(
-                                          decoration: const InputDecoration(
-                                              hintText: "Password"),
-                                          onSubmitted: (value) {},
-                                          style: const TextStyle(),
-                                          controller:
-                                              _passwordTextEditingController,
-                                        ),
-                                      ],
+                              Padding(
+                                padding: const EdgeInsets.all(30.0),
+                                child: Center(
+                                  child: SizedBox(
+                                    child: Form(
+                                      key: formKey,
+                                      autovalidateMode: AutovalidateMode.always,
+                                      child: Column(
+                                        children: [
+                                          TextField(
+                                            decoration: const InputDecoration(
+                                                hintText: "Email"),
+                                            onSubmitted: (value) {},
+                                            style: const TextStyle(),
+                                            controller:
+                                                _emailTextEditingController,
+                                          ),
+                                          TextField(
+                                            decoration: const InputDecoration(
+                                                hintText: "Password"),
+                                            onSubmitted: (value) {},
+                                            style: const TextStyle(),
+                                            controller:
+                                                _passwordTextEditingController,
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ),

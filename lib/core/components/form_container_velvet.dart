@@ -14,30 +14,28 @@ class FormContainerVelvet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: ConstrainedBox(
-        constraints:
-            BoxConstraints(maxHeight: maxSize.height, maxWidth: maxSize.width),
-        child: Material(
-          elevation: 2,
-          color: Colors.white,
-          shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(10))),
-          child: CustomScrollView(
-            slivers: [
-              SliverFillRemaining(
-                child: Column(
-                  children: [
-                    Text(
-                      title,
-                      style: const TextStyle(fontSize: 23),
-                    ),
-                    child,
-                  ],
-                ),
-              )
-            ],
-          ),
+    return ConstrainedBox(
+      constraints:
+          BoxConstraints(maxHeight: maxSize.height, maxWidth: maxSize.width),
+      child: Material(
+        elevation: 2,
+        color: Colors.white,
+        shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(10))),
+        child: CustomScrollView(
+          slivers: [
+            SliverFillRemaining(
+              child: Column(
+                children: [
+                  Text(
+                    title,
+                    style: const TextStyle(fontSize: 23),
+                  ),
+                  child,
+                ],
+              ),
+            )
+          ],
         ),
       ),
     );
