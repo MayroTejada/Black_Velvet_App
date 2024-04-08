@@ -3,7 +3,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:black_velvet_app/app_router.dart';
 import 'package:black_velvet_app/core/components/black_velvet_flushbar.dart';
 import 'package:black_velvet_app/core/components/form_container_velvet.dart';
-import 'package:black_velvet_app/features/login/presentation/bloc/auth_bloc.dart';
+import 'package:black_velvet_app/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:black_velvet_app/injection_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

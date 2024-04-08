@@ -14,24 +14,10 @@ class DashboardPage extends StatefulWidget {
 class _DashboardPageState extends State<DashboardPage> {
   int selectedIndex = 0;
 
-  Widget setView(int index) {
-    switch (index) {
-      case 0:
-      case 1:
-        return SizedBox(
-          height: MediaQuery.of(context).size.height,
-          child: const Placeholder(
-            child: Text('Cuenta'),
-          ),
-        );
-      default:
-        return const Placeholder();
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return AutoTabsRouter(
+        lazyLoad: true,
         routes: const [QuotationsRoute(), ProfileRoute()],
         transitionBuilder: (context, child, animation) => FadeTransition(
               opacity: animation,
@@ -61,14 +47,15 @@ class _DashboardPageState extends State<DashboardPage> {
                     ),
                     SideNavigationBarItem(
                       icon: Icons.person,
-                      label: 'Account',
+                      label: 'Perfil',
                     ),
                     SideNavigationBarItem(
                       icon: Icons.settings,
-                      label: 'Settings',
+                      label: 'Ajustes',
                     ),
                   ],
                   onTap: (index) {
+                    selectedIndex = index;
                     tabsRouter.setActiveIndex(index);
                   },
                 ),

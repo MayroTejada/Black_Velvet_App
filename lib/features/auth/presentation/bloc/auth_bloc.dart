@@ -1,4 +1,4 @@
-import 'package:black_velvet_app/features/login/domain/use_cases/login.dart';
+import 'package:black_velvet_app/features/auth/domain/use_cases/login.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';

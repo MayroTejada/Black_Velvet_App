@@ -1,11 +1,11 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:black_velvet_app/core/routing/auth_guard.dart';
+import 'package:black_velvet_app/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:black_velvet_app/features/auth/presentation/views/login_page.dart';
 import 'package:black_velvet_app/features/cake_quotes/presentation/pages/cake_quote_user_form.dart';
 import 'package:black_velvet_app/features/cake_quotes/presentation/views/cake_quotation_page.dart';
 import 'package:black_velvet_app/features/dashboard/presentation/views/dashboard_page.dart';
 import 'package:black_velvet_app/features/dashboard/presentation/views/quotations_page.dart';
-import 'package:black_velvet_app/features/login/presentation/bloc/auth_bloc.dart';
-import 'package:black_velvet_app/features/login/presentation/views/login.dart';
 import 'package:black_velvet_app/features/profile/presentation/views/profile_page.dart';
 import 'package:black_velvet_app/injection_container.dart';
 
