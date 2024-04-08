@@ -1,15 +1,14 @@
 import '../../domain/entities/profile.dart';
-import '../../domain/entities/profile_parameters.dart';
 
 abstract class ProfileDatasource {
-  Future<Profile> call(ProfileParameters parameters);
+  Future<Profile> call(int parameters);
 }
 
 class ProfileDatasourceImplementation implements ProfileDatasource {
   ProfileDatasourceImplementation();
 
   @override
-  Future<Profile> call(ProfileParameters parameters) async {
+  Future<Profile> call(int parameters) async {
     throw UnimplementedError();
   }
 }

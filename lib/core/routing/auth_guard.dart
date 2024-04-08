@@ -8,7 +8,7 @@ class AuthGuard extends AutoRouteGuard {
   AuthGuard({required this.authBloc});
   @override
   void onNavigation(NavigationResolver resolver, StackRouter router) {
-    if (authBloc.state is AuthSuccess) {
+    if (authBloc.state.authStateEnum == AuthStateEnum.success) {
       resolver.next(true);
     } else {
       router.push(const LoginRoute());

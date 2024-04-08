@@ -27,7 +27,7 @@ class ProfileBloc extends Bloc<ProfileEvents, ProfileStates>
       GetProfileEvent event, Emitter<ProfileStates> emit) async {
     emit(const GetProfileLoadingState());
 
-    final result = await usecase(event.parameters);
+    final result = await usecase(const GetProfileParameters(profileId: 1));
 
     result.fold(
       (l) => emit(GetProfileFailureState(l.message)),

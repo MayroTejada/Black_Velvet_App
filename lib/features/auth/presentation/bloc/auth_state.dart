@@ -1,12 +1,37 @@
+// ignore_for_file: must_be_immutable
+
 part of 'auth_bloc.dart';
 
-@immutable
-sealed class AuthState {}
+enum AuthStateEnum { initial, success, failure, loading }
 
-final class AuthInitial extends AuthState {}
+class AuthState extends Equatable {
+  final User? user;
+  final AuthStateEnum? authStateEnum;
 
-final class AuthLoading extends AuthState {}
+  const AuthState({this.user, this.authStateEnum});
 
-final class AuthSuccess extends AuthState {}
+  AuthState initialState() {
+    return AuthState(user: user, authStateEnum: AuthStateEnum.initial);
+  }
 
-final class AuthFailed extends AuthState {}
+  AuthState loadingState() {
+    return AuthState(user: user, authStateEnum: AuthStateEnum.loading);
+  }
+
+  AuthState authSuccesfullyState(User user) {
+    return AuthState(user: user, authStateEnum: AuthStateEnum.success);
+  }
+
+  AuthState authFailedState(String error) {
+    return AuthState(user: user, authStateEnum: AuthStateEnum.failure);
+  }
+
+  AuthState copyWith({User? user, AuthStateEnum? authStateEnum}) {
+    return AuthState(
+        user: user ?? this.user,
+        authStateEnum: authStateEnum ?? this.authStateEnum);
+  }
+
+  @override
+  List<Object?> get props => [user, authStateEnum];
+}

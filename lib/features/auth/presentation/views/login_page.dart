@@ -40,13 +40,13 @@ class _LoginPageState extends State<LoginPage> {
         create: (context) => getIt<AuthBloc>(),
         child: BlocListener<AuthBloc, AuthState>(
           listener: (context, state) {
-            if (state is AuthSuccess) {
+            if (state.authStateEnum == AuthStateEnum.success) {
               showVelvetFlushbar(
                       context: context, title: 'success', message: '<3')
                   .then((value) {
                 context.router.replace(const DashboardRoute());
               });
-            } else if (state is AuthFailed) {
+            } else if (state.authStateEnum == AuthStateEnum.failure) {
               Flushbar(
                 backgroundColor: Colors.red,
                 duration: const Duration(seconds: 3),
@@ -57,7 +57,7 @@ class _LoginPageState extends State<LoginPage> {
           },
           child: BlocBuilder<AuthBloc, AuthState>(
             builder: (context, state) {
-              if (state is AuthLoading) {
+              if (state.authStateEnum == AuthStateEnum.loading) {
                 return const Center(
                   child: CircularProgressIndicator(),
                 );
