@@ -1,11 +1,11 @@
 import 'package:black_velvet_app/features/auth/domain/entities/user.dart';
 import 'package:black_velvet_app/features/auth/domain/use_cases/login.dart';
-import 'package:black_velvet_app/injection_container.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../domain/use_cases/auth_with_token.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';
@@ -13,7 +13,11 @@ part 'auth_state.dart';
 @injectable
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final Login login;
-  AuthBloc({required this.login}) : super(const AuthState().initialState()) {
+  final AuthWithToken authWithToken;
+  AuthBloc({
+    required this.login,
+    required this.authWithToken,
+  }) : super(const AuthState().initialState()) {
     on<SignInEvent>(signInEvent);
     on<CheckAuthEvent>(checkAuthEvent);
   }
@@ -33,11 +37,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   Future<void> checkAuthEvent(
       CheckAuthEvent event, Emitter<AuthState> emit) async {
     await Future.delayed(const Duration(seconds: 3));
-    var token = getIt<SharedPreferences>().getString('token');
-    if (token != null) {
-      emit(const AuthState(authStateEnum: AuthStateEnum.success));
-    } else {
-      emit(const AuthState(authStateEnum: AuthStateEnum.failure));
-    }
+    var res = await authWithToken.call(const AuthWithTokenParams());
+    res.fold((failure) => emit(state.authFailedState('token invalido')),
+        (user) {
+      emit(state.authSuccesfullyState(user));
+    });
   }
 }
