@@ -1,5 +1,6 @@
 import 'profile_events.dart';
 
 class GetProfileEvent implements ProfileEvents {
-  const GetProfileEvent();
+  final String profileId;
+  const GetProfileEvent({required this.profileId});
 }

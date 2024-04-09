@@ -1,27 +1,26 @@
 import 'package:black_velvet_app/core/failures/failure.dart';
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
+import 'package:injectable/injectable.dart';
 
+import '../../../../core/usecases/usecase.dart';
 import '../entities/profile.dart';
 import '../repositories/profile_repository.dart';
 
-abstract class GetProfile {
-  Future<Either<Failure, Profile>> call(GetProfileParameters parameters);
-}
-
-class GetProfileImplementation implements GetProfile {
+@injectable
+class GetProfile implements UseCase<Profile, GetProfileParameters> {
   final ProfileRepository repository;
 
-  GetProfileImplementation(this.repository);
+  GetProfile({required this.repository});
 
   @override
   Future<Either<Failure, Profile>> call(GetProfileParameters parameters) async {
-    return repository(parameters.profileId);
+    return repository.getProfile(parameters.profileId);
   }
 }
 
 class GetProfileParameters extends Equatable {
-  final int profileId;
+  final String profileId;
 
   const GetProfileParameters({required this.profileId});
 

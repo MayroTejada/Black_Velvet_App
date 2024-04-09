@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:black_velvet_app/app_router.dart';
 import 'package:black_velvet_app/core/network/pocket_base_client.dart';
+import 'package:pocketbase/pocketbase.dart';
 
 class AuthGuard extends AutoRouteGuard {
   final PocketBaseModuleImpl module;
