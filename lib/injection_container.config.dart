@@ -41,7 +41,7 @@ extension GetItInjectableX on _i1.GetIt {
       () => injectionModule.prefs,
       preResolve: true,
     );
-    gh.singleton<_i7.AuthBloc>(() => _i7.AuthBloc(login: gh<_i5.Login>()));
+    gh.factory<_i7.AuthBloc>(() => _i7.AuthBloc(login: gh<_i5.Login>()));
     return this;
   }
 }
