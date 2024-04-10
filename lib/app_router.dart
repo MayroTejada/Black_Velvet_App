@@ -1,8 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:black_velvet_app/core/network/pocket_base_client.dart';
 import 'package:black_velvet_app/core/routing/auth_guard.dart';
-import 'package:black_velvet_app/features/auth/presentation/views/login_page.dart';
-import 'package:black_velvet_app/features/auth/presentation/views/splash.dart';
+import 'package:black_velvet_app/features/login/data/views/login_page.dart';
+import 'package:black_velvet_app/features/login/data/views/splash.dart';
 import 'package:black_velvet_app/features/cake_quotes/presentation/pages/cake_quote_user_form.dart';
 import 'package:black_velvet_app/features/cake_quotes/presentation/views/cake_quotation_page.dart';
 import 'package:black_velvet_app/features/dashboard/presentation/views/dashboard_page.dart';

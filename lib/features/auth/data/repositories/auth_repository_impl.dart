@@ -21,12 +21,17 @@ class AuthRepositoryImpl extends AuthRepository {
     try {
       RecordAuth res =
           await remoteDataSourceImpl.login(email: email, password: password);
-
       var user = UserModel.fromJson(res.record!.data);
       return Right(user);
     } on Exception catch (e) {
-      print(e);
-      return const Left(Failure());
+      if (e is ClientException) {
+        ClientException clientException = e;
+        return Left(Failure(
+            message: clientException.response['message'],
+            code: clientException.response['code']));
+      } else {
+        return Left(Failure(message: e.toString()));
+      }
     }
   }
 

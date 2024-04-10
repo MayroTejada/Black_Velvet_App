@@ -1,3 +1,4 @@
+import 'package:black_velvet_app/core/failures/failure.dart';
 import 'package:black_velvet_app/features/auth/domain/entities/user.dart';
 import 'package:black_velvet_app/features/auth/domain/use_cases/login.dart';
 import 'package:bloc/bloc.dart';
@@ -26,20 +27,18 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     emit(const AuthState().loadingState());
     if (!kDebugMode) {
       emit(const AuthState());
-    } else {
-      final res = await login
-          .call(LoginParams(email: event.email, password: event.password));
-      res.fold((l) => emit(const AuthState().authFailedState('error')),
-          (user) => emit(const AuthState().authSuccesfullyState(user)));
     }
+    final res = await login
+        .call(LoginParams(email: event.email, password: event.password));
+    res.fold((failure) => emit(state.authFailedState(failure)),
+        (user) => emit(state.authSuccesfullyState(user)));
   }
 
   Future<void> checkAuthEvent(
       CheckAuthEvent event, Emitter<AuthState> emit) async {
     await Future.delayed(const Duration(seconds: 3));
     var res = await authWithToken.call(const AuthWithTokenParams());
-    res.fold((failure) => emit(state.authFailedState('token invalido')),
-        (user) {
+    res.fold((failure) => emit(state.authFailedState(failure)), (user) {
       emit(state.authSuccesfullyState(user));
     });
   }
