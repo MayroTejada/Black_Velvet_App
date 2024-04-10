@@ -26,7 +26,7 @@ class ProfileBloc extends Bloc<ProfileEvents, ProfileState>
         await usecase.call(GetProfileParameters(profileId: event.profileId));
 
     result.fold(
-      (l) => emit(state.failedState()),
+      (failure) => emit(state.failedState(failure)),
       (r) {
         emit(state.successlState(profile: r));
       },

@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:black_velvet_app/core/components/black_velvet_flushbar.dart';
 import 'package:black_velvet_app/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:black_velvet_app/features/profile/presentation/profile_bloc/events/get_profile_event.dart';
 import 'package:black_velvet_app/features/profile/presentation/profile_bloc/profile_bloc.dart';
@@ -27,19 +28,40 @@ class _ProfilePageState extends State<ProfilePage> {
           create: (context) => getIt<ProfileBloc>(),
         ),
       ],
-      child: BlocListener<AuthBloc, AuthState>(
-        listener: (context, state) {
-          if (state.authStateEnum == AuthStateEnum.success) {
-            context
-                .read<ProfileBloc>()
-                .add(GetProfileEvent(profileId: state.user!.profileId));
-          }
-        },
+      child: MultiBlocListener(
+        listeners: [
+          BlocListener<AuthBloc, AuthState>(
+            listener: (context, state) {
+              if (state.authStateEnum == AuthStateEnum.success) {
+                context
+                    .read<ProfileBloc>()
+                    .add(GetProfileEvent(profileId: state.user!.profileId));
+              }
+            },
+          ),
+          BlocListener<ProfileBloc, ProfileState>(
+            listener: (context, state) {
+              if (state.stateEnum == ProfileStateEnum.failed) {
+                showVelvetFlushbar(
+                        context: context,
+                        title: 'ERROR ${state.failure?.code}',
+                        message: state.failure?.message ?? 'unknown')
+                    .then((value) {});
+              }
+            },
+          ),
+        ],
         child: BlocBuilder<ProfileBloc, ProfileState>(
           builder: (context, state) {
-            return Center(
-              child: Text(state.profile.toString()),
-            );
+            if (state.stateEnum == ProfileStateEnum.loading) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            } else {
+              return Center(
+                child: Text(state.profile.toString()),
+              );
+            }
           },
         ),
       ),

@@ -1,6 +1,7 @@
 import 'package:black_velvet_app/core/failures/failure.dart';
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
+import 'package:pocketbase/pocketbase.dart';
 
 import '../../domain/entities/profile.dart';
 import '../../domain/repositories/profile_repository.dart';
@@ -20,8 +21,12 @@ class ProfileRepositoryImpl implements ProfileRepository {
       var profile = ProfileModel.fromJson(res.data);
       return Right(profile);
     } on Exception catch (e) {
-      print('aalgo');
-      return const Left(Failure());
+      if (e is ClientException) {
+        final ClientException clientException = e;
+        return Left(Failure(message: clientException.response['message']));
+      } else {
+        return const Left(Failure());
+      }
     }
   }
 }
