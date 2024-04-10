@@ -20,6 +20,7 @@ class ProfileRepositoryImpl implements ProfileRepository {
       var profile = ProfileModel.fromJson(res.data);
       return Right(profile);
     } on Exception catch (e) {
+      print(e);
       return const Left(Failure());
     }
   }
