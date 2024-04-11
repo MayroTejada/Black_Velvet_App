@@ -1,11 +1,9 @@
+import 'package:black_velvet_app/core/constants/globals.dart';
 import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:pocketbase/pocketbase.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-const String baseUrl = !kDebugMode
-    ? 'http://127.0.0.1:8090/api/'
-    : 'https://blackvelvet.pockethost.io/';
 
 PocketBase buildClient(String baseUrl,
     {required SharedPreferences sharedPreferences}) {

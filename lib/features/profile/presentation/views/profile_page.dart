@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:black_velvet_app/core/components/black_velvet_flushbar.dart';
 import 'package:black_velvet_app/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:black_velvet_app/features/images/presentation/components/velvet_image.dart';
 import 'package:black_velvet_app/features/profile/presentation/profile_bloc/events/get_profile_event.dart';
 import 'package:black_velvet_app/features/profile/presentation/profile_bloc/profile_bloc.dart';
 import 'package:black_velvet_app/features/profile/presentation/profile_bloc/states/profile_states.dart';
@@ -53,15 +54,23 @@ class _ProfilePageState extends State<ProfilePage> {
         ],
         child: BlocBuilder<ProfileBloc, ProfileState>(
           builder: (context, state) {
-            if (state.stateEnum == ProfileStateEnum.loading) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            } else {
+            if (state.stateEnum == ProfileStateEnum.success) {
               return Center(
-                child: Text(state.profile.toString()),
+                child: Column(
+                  children: [
+                    Text(state.profile!.name),
+                    VelvetImage(
+                      collectionId: state.profile!.collectionId,
+                      recordId: state.profile!.id,
+                      imageId: state.profile!.avatar,
+                    )
+                  ],
+                ),
               );
             }
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
           },
         ),
       ),

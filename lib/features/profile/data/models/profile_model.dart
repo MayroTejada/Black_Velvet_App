@@ -14,18 +14,23 @@ class ProfileModel extends Profile {
   @JsonKey(name: 'avatar')
   final String avatar;
   @override
-  @JsonKey(name: 'id')
-  final String? id;
+  @JsonKey(name: 'recordId')
+  final String id;
+  @override
+  @JsonKey(name: 'collectionId')
+  final String collectionId;
   const ProfileModel({
     required this.avatar,
+    required this.collectionId,
     required this.name,
     required this.id,
   }) : super(
             avatar: avatar,
             name: name,
-            id: id ?? '',
+            id: id,
             phoneNumber: '',
-            email: '');
+            email: '',
+            collectionId: collectionId);
   factory ProfileModel.fromJson(Map<String, dynamic> json) =>
       _$ProfileModelFromJson(json);
 

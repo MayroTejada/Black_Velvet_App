@@ -18,6 +18,8 @@ class ProfileRepositoryImpl implements ProfileRepository {
   Future<Either<Failure, Profile>> getProfile(String profileId) async {
     try {
       var res = await datasource.getProfile(profileId);
+      res.data['recordId'] = res.id;
+      res.data['collectionId'] = res.collectionId;
       var profile = ProfileModel.fromJson(res.data);
       return Right(profile);
     } on Exception catch (e) {
