@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:responsive_framework/responsive_framework.dart';
 
 class FormContainerVelvet extends StatelessWidget {
   final Form child;
@@ -15,29 +16,24 @@ class FormContainerVelvet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ConstrainedBox(
-      constraints:
-          BoxConstraints(maxHeight: maxSize.height, maxWidth: maxSize.width),
-      child: Material(
-        elevation: 2,
-        color: Colors.white,
-        shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(10))),
-        child: CustomScrollView(
-          slivers: [
-            SliverFillRemaining(
-              child: Column(
-                children: [
-                  Text(
-                    title,
-                    style: const TextStyle(fontSize: 23),
-                  ),
-                  child,
-                ],
-              ),
-            )
-          ],
-        ),
-      ),
-    );
+        constraints:
+            BoxConstraints(maxHeight: maxSize.height, maxWidth: maxSize.width),
+        child: Material(
+          elevation: 2,
+          color: Colors.white,
+          shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(10))),
+          child: ResponsiveRowColumn(
+            layout: ResponsiveRowColumnType.COLUMN,
+            children: [
+              ResponsiveRowColumnItem(
+                  child: Text(
+                title,
+                style: const TextStyle(fontSize: 23),
+              )),
+              ResponsiveRowColumnItem(child: child),
+            ],
+          ),
+        ));
   }
 }

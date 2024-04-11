@@ -3,10 +3,12 @@ import 'package:auto_route/auto_route.dart';
 import 'package:black_velvet_app/app_router.dart';
 import 'package:black_velvet_app/core/components/black_velvet_flushbar.dart';
 import 'package:black_velvet_app/core/components/form_container_velvet.dart';
+import 'package:black_velvet_app/core/components/velvet_Elevated_button.dart';
 import 'package:black_velvet_app/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:black_velvet_app/injection_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:responsive_framework/responsive_framework.dart';
 
 @RoutePage()
 class LoginPage extends StatefulWidget {
@@ -57,40 +59,41 @@ class _LoginPageState extends State<LoginPage> {
           },
           child: BlocBuilder<AuthBloc, AuthState>(
             builder: (context, state) {
-              if (state.authStateEnum == AuthStateEnum.loading) {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              } else {
-                return Scrollbar(
+              return Scrollbar(
+                controller: scrollController,
+                child: SingleChildScrollView(
                   controller: scrollController,
-                  child: SingleChildScrollView(
-                    controller: scrollController,
-                    physics: const BouncingScrollPhysics(),
-                    padding: const EdgeInsets.all(50),
-                    child: Center(
-                      child: FormContainerVelvet(
-                        maxSize: Size(MediaQuery.of(context).size.width * .8,
-                            MediaQuery.of(context).size.height * .8),
-                        child: Form(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              const Text(
-                                'Inicia sesion',
-                                style: TextStyle(fontSize: 26),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(30.0),
-                                child: Center(
-                                  child: SizedBox(
-                                    child: Form(
-                                      key: formKey,
-                                      autovalidateMode: AutovalidateMode.always,
-                                      child: Column(
-                                        children: [
-                                          TextField(
+                  physics: const BouncingScrollPhysics(),
+                  padding: const EdgeInsets.all(50),
+                  child: Center(
+                    child: FormContainerVelvet(
+                      maxSize: Size(MediaQuery.of(context).size.width * .8,
+                          MediaQuery.of(context).size.height * .8),
+                      child: Form(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            const Text(
+                              'Inicia sesion',
+                              style: TextStyle(fontSize: 26),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(30.0),
+                              child: Center(
+                                child: SizedBox(
+                                  height: 400,
+                                  width: 400,
+                                  child: Form(
+                                    key: formKey,
+                                    autovalidateMode: AutovalidateMode.always,
+                                    child: ResponsiveRowColumn(
+                                      rowSpacing: 30,
+                                      columnSpacing: 30,
+                                      layout: ResponsiveRowColumnType.COLUMN,
+                                      children: [
+                                        ResponsiveRowColumnItem(
+                                          child: TextField(
                                             decoration: const InputDecoration(
                                                 hintText: "Email"),
                                             onSubmitted: (value) {},
@@ -98,7 +101,9 @@ class _LoginPageState extends State<LoginPage> {
                                             controller:
                                                 _emailTextEditingController,
                                           ),
-                                          TextField(
+                                        ),
+                                        ResponsiveRowColumnItem(
+                                          child: TextField(
                                             decoration: const InputDecoration(
                                                 hintText: "Password"),
                                             onSubmitted: (value) {},
@@ -106,34 +111,43 @@ class _LoginPageState extends State<LoginPage> {
                                             controller:
                                                 _passwordTextEditingController,
                                           ),
-                                        ],
-                                      ),
+                                        ),
+                                        ResponsiveRowColumnItem(
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: VelvetElevatedButton(
+                                              isLoading: state.authStateEnum ==
+                                                  AuthStateEnum.loading,
+                                              onPressedCallback: () {
+                                                if (formKey.currentState!
+                                                    .validate()) {
+                                                  context.read<AuthBloc>().add(
+                                                      SignInEvent(
+                                                          email:
+                                                              _emailTextEditingController
+                                                                  .text,
+                                                          password:
+                                                              _passwordTextEditingController
+                                                                  .text));
+                                                }
+                                              },
+                                              text: 'Log in',
+                                            ),
+                                          ),
+                                        )
+                                      ],
                                     ),
                                   ),
                                 ),
                               ),
-                              const SizedBox(
-                                height: 50,
-                              ),
-                              FilledButton(
-                                onPressed: () {
-                                  if (formKey.currentState!.validate()) {
-                                    context.read<AuthBloc>().add(SignInEvent(
-                                        email: _emailTextEditingController.text,
-                                        password: _passwordTextEditingController
-                                            .text));
-                                  }
-                                },
-                                child: const Text("Login"),
-                              )
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       ),
                     ),
                   ),
-                );
-              }
+                ),
+              );
             },
           ),
         ),
