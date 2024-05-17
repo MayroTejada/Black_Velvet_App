@@ -4,7 +4,7 @@ import 'package:black_velvet_app/app_router.dart';
 import 'package:black_velvet_app/core/components/black_velvet_flushbar.dart';
 import 'package:black_velvet_app/core/components/form_container_velvet.dart';
 import 'package:black_velvet_app/core/components/velvet_Elevated_button.dart';
-import 'package:black_velvet_app/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:black_velvet_app/features/login/presentation/bloc/login_bloc.dart';
 import 'package:black_velvet_app/injection_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -39,16 +39,16 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocProvider(
-        create: (context) => getIt<AuthBloc>(),
-        child: BlocListener<AuthBloc, AuthState>(
+        create: (context) => getIt<LoginBloc>(),
+        child: BlocListener<LoginBloc, LoginState>(
           listener: (context, state) {
-            if (state.authStateEnum == AuthStateEnum.success) {
+            if (state.loginStateEnum == LoginStateEnum.success) {
               showVelvetFlushbar(
                       context: context, title: 'success', message: '<3')
                   .then((value) {
                 context.router.replace(const DashboardRoute());
               });
-            } else if (state.authStateEnum == AuthStateEnum.failure) {
+            } else if (state.loginStateEnum == LoginStateEnum.failure) {
               Flushbar(
                 backgroundColor: Colors.red,
                 duration: const Duration(seconds: 5),
@@ -57,7 +57,7 @@ class _LoginPageState extends State<LoginPage> {
               ).show(context);
             }
           },
-          child: BlocBuilder<AuthBloc, AuthState>(
+          child: BlocBuilder<LoginBloc, LoginState>(
             builder: (context, state) {
               return Scrollbar(
                 controller: scrollController,
@@ -116,13 +116,13 @@ class _LoginPageState extends State<LoginPage> {
                                           child: Padding(
                                             padding: const EdgeInsets.all(8.0),
                                             child: VelvetElevatedButton(
-                                              isLoading: state.authStateEnum ==
-                                                  AuthStateEnum.loading,
+                                              isLoading: state.loginStateEnum ==
+                                                  LoginStateEnum.loading,
                                               onPressedCallback: () {
                                                 if (formKey.currentState!
                                                     .validate()) {
-                                                  context.read<AuthBloc>().add(
-                                                      SignInEvent(
+                                                  context.read<LoginBloc>().add(
+                                                      LoginEvent(
                                                           email:
                                                               _emailTextEditingController
                                                                   .text,

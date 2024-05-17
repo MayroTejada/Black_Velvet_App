@@ -8,7 +8,7 @@ import 'package:responsive_framework/responsive_framework.dart';
 
 import 'injection_container.dart';
 
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   if (!kIsWeb) {
@@ -20,7 +20,7 @@ void main() {
           Platform.isAndroid ? Brightness.light : Brightness.dark,
     ));
   } else if (kIsWeb) {}
-  configureDependencies();
+  await configureDependencies();
   runApp(MyApp());
 }
 

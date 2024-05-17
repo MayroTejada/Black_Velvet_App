@@ -15,6 +15,9 @@ PocketBase buildClient(String baseUrl,
   );
   return PocketBase(baseUrl, authStore: customAuthStore);
 }
+abstract class RegisterPocketBaseModule {
+  PocketBase get pocketBase;
+}
 
 @singleton
 class PocketBaseModuleImpl implements RegisterPocketBaseModule {
@@ -26,6 +29,4 @@ class PocketBaseModuleImpl implements RegisterPocketBaseModule {
       buildClient(baseUrl, sharedPreferences: sharedPreferences);
 }
 
-abstract class RegisterPocketBaseModule {
-  PocketBase get pocketBase;
-}
+

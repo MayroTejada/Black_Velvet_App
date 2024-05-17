@@ -7,7 +7,7 @@ abstract class PocketBaseAuthService {
   Future<RecordAuth> login(String email, String password);
 }
 
-@injectable
+@Injectable(as: PocketBaseAuthService)
 class PocketBaseAuthServiceImpl implements PocketBaseAuthService {
   final PocketBaseModuleImpl module;
 

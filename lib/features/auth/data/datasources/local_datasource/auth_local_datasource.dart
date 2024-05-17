@@ -6,7 +6,7 @@ abstract class AuthLocaDataSource {
   Future<bool> saveToken(String token);
 }
 
-@injectable
+@Injectable(as: AuthLocaDataSource)
 class AuthLocaDataSourceImpl extends AuthLocaDataSource {
   final SharedPreferences sharedPreferences;
 

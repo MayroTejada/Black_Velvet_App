@@ -2,16 +2,16 @@ import 'package:black_velvet_app/features/auth/data/services/pocket_base_auth_se
 import 'package:injectable/injectable.dart';
 import 'package:pocketbase/pocketbase.dart';
 
-abstract class AuthRemoteDataSource {
+abstract class UserRemoteDataSource {
   Future<RecordAuth> login({required String email, required String password});
   Future<RecordAuth> authWithToken();
 }
 
-@Injectable(as: AuthRemoteDataSource)
-class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
+@injectable
+class UserRemoteDataSourceImpl extends UserRemoteDataSource {
   final PocketBaseAuthService service;
 
-  AuthRemoteDataSourceImpl({required this.service});
+  UserRemoteDataSourceImpl({required this.service});
   @override
   Future<RecordAuth> login({required String email, required String password}) {
     return service.login(email, password);
